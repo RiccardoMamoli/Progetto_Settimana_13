@@ -1,11 +1,17 @@
 package riccardomamoli;
 
+import riccardomamoli.exceptions.OutOfRangeNumberOfPlayersExceptions;
+
 public class BoardGame extends GameBasicClass {
     private Integer numGiocatori;
     private double durataPartita;
 
-    public BoardGame(Integer numGiocatori, double durataPartita, Integer id, String titolo, Integer annoPubblicazione, double prezzo) {
+    public BoardGame(Integer id, String titolo, Integer annoPubblicazione,  double prezzo, Integer numGiocatori, double durataPartita) throws OutOfRangeNumberOfPlayersExceptions {
         super(id, titolo, annoPubblicazione, prezzo);
+
+        if (numGiocatori < 2 || numGiocatori > 10) {
+            throw new OutOfRangeNumberOfPlayersExceptions("Il numero di giocatori non è nel range accettato (2-10).");
+        }
         this.numGiocatori = numGiocatori;
         this.durataPartita = durataPartita;
     }
