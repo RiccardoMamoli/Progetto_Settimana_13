@@ -55,5 +55,4 @@ public abstract class GameBasicClass {
                 ", prezzo=" + prezzo +
                 '}';
     }
-
 }

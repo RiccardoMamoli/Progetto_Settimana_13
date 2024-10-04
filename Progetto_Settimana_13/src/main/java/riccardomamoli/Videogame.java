@@ -38,10 +38,10 @@ public class Videogame extends GameBasicClass {
 
     @Override
     public String toString() {
-        return "Videogame{" +
+        return "Videogame{" + super.toString() +
                 "piattaforma='" + piattaforma + '\'' +
                 ", ore=" + ore +
                 ", generi=" + generi +
-                '}';
+                "}";
     }
 }

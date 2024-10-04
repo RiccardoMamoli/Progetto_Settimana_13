@@ -46,8 +46,10 @@ public class Application {
             System.out.println("1) Aggiungi un gioco.");
             System.out.println("2) Ricerca un gioco tramite ID.");
             System.out.println("3) Filtra giochi per prezzo.");
-            System.out.println("4) Stampa l'intera collezione.");
-            System.out.println("5) Termina.");
+            System.out.println("4) Filtra giochi per numero di giocatori.");
+            System.out.println("5) Elimina un gioco.");
+            System.out.println("6) Stampa l'intera collezione.");
+            System.out.println("7) Termina.");
             System.out.println(" ");
 
             int selezione = sc.nextInt();
@@ -158,9 +160,42 @@ public class Application {
                     System.out.println(" ");
                     System.out.println("Inserisci un prezzo per filtrare i giochi.");
                     System.out.println(" ");
-
+                    double prezzo = sc.nextDouble();
+                    List<GameBasicClass> giochiFiltrati = collezione.filtraGiochi(prezzo);
+                    System.out.println("I giochi con prezzo inferiore a " + prezzo + " sono: ");
+                    giochiFiltrati.forEach(System.out::println);
+                    break;
 
                 case 4:
+                    try {
+                        System.out.println(" ");
+                        System.out.println("In quanti volete giocare?");
+                        System.out.println(" ");
+                        int giocatori = sc.nextInt();
+                        collezione.ricercaPerGiocatori(giocatori);
+                    } catch (OutOfRangeNumberOfPlayersExceptions e) {
+                        System.out.println(" ");
+                        System.out.println(e.getMessage());
+                        System.out.println(" ");
+                    }
+                    break;
+
+                case 5:
+                    try {
+                        System.out.println(" ");
+                        System.out.println("In quanti volete giocare?");
+                        System.out.println(" ");
+                        int id = sc.nextInt();
+                        collezione.eliminaID(id);
+
+                    } catch (NoIdFoundExceptions e) {
+                        System.out.println(" ");
+                        System.out.println(e.getMessage());
+                        System.out.println(" ");
+                    }
+                    break;
+
+                case 6:
                         collezione.stampaCollezione();
                         break;
             }

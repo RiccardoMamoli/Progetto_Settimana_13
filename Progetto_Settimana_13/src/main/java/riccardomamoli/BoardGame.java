@@ -34,9 +34,9 @@ public class BoardGame extends GameBasicClass {
 
     @Override
     public String toString() {
-        return "BoardGame{" +
+        return "BoardGame{"  + super.toString() +
                 "numGiocatori=" + numGiocatori +
                 ", durataPartita=" + durataPartita +
-                '}';
+                "}";
     }
 }

@@ -1,6 +1,7 @@
 package riccardomamoli;
 
 import riccardomamoli.exceptions.NoIdFoundExceptions;
+import riccardomamoli.exceptions.OutOfRangeNumberOfPlayersExceptions;
 import riccardomamoli.exceptions.SameIdExceptions;
 
 import java.util.ArrayList;
@@ -31,6 +32,7 @@ public class Collezione {
                 .filter(g -> g.getId().equals(id)).findFirst();
 
         if (giocoRicercatoID.isPresent()) {
+            System.out.println(" ");
             System.out.println("----------------------------------------- ");
             System.out.println("Ecco il gioco da te richiesto: ");
             GameBasicClass giocoFiltratoID = giocoRicercatoID.get();
@@ -45,6 +47,7 @@ public class Collezione {
     }
 
     public void stampaCollezione() {
+        System.out.println(" ");
         System.out.println("----------------------------------------- ");
         System.out.println(" ");
         System.out.println("Collezione completa: ");
@@ -57,17 +60,58 @@ public class Collezione {
                                         "\nPrezzo: " + gioco.getPrezzo() + "\n"));
     }
 
+    public void ricercaPerGiocatori(Integer numeroGiocatori) throws OutOfRangeNumberOfPlayersExceptions {
+        System.out.println(" ");
+        System.out.println("----------------------------------------- ");
+        System.out.println(" ");
+        System.out.println("Lista filtrata per giocatori: ");
+        System.out.println(" ");
+        List<BoardGame> giochiRicercatiPerGiocatori = tuttiGiochi.stream().filter(gioco -> gioco instanceof BoardGame).map(gioco -> (BoardGame) gioco)
+                .filter(g -> g.getNumGiocatori() == numeroGiocatori).collect(Collectors.toList());
+
+        if(giochiRicercatiPerGiocatori.isEmpty()) {
+            System.out.println("Non c'è nessun gioco per " + numeroGiocatori + " giocatori.");
+        } else {
+            giochiRicercatiPerGiocatori.forEach(gioco ->
+                    System.out.println("ID:  " + gioco.getId() +
+                            "\nTitolo: " + gioco.getTitolo() +
+                            "\nNumero giocatori: " + gioco.getNumGiocatori() +
+                            "\nPrezzo: " + gioco.getPrezzo() + "\n"));
+
+        }
+    }
+
+    public void eliminaID(Integer id) throws NoIdFoundExceptions{
+       GameBasicClass giocoEliminato = tuttiGiochi.stream().filter(gioco -> gioco.getId().equals(id)).findFirst().orElse(null);
+
+       if(giocoEliminato == null) {
+           throw new NoIdFoundExceptions("Nessun ha questo ID.");
+       } else {
+           tuttiGiochi.remove(giocoEliminato);
+           System.out.println("Il gioco con ID " + id + " è stato rimosso con successo!");
+       }
+    }
+
     public List<GameBasicClass> filtraGiochi (double prezzo) {
-      return tuttiGiochi.stream().filter(gioco -> gioco.getPrezzo() < prezzo)
-               .collect(Collectors.toList());
-    };
+      return tuttiGiochi.stream().filter(gioco -> gioco.getPrezzo() < prezzo).collect(Collectors.toList());
+      };
 
 
     public List<GameBasicClass> getTuttiGiochi() {
         return tuttiGiochi;
     }
 
+
+
+
     public void setTuttiGiochi(List<GameBasicClass> tuttiGiochi) {
         this.tuttiGiochi = tuttiGiochi;
+    }
+
+    @Override
+    public String toString() {
+        return "Collezione{" +
+                "tuttiGiochi=" + tuttiGiochi +
+                '}';
     }
 }
