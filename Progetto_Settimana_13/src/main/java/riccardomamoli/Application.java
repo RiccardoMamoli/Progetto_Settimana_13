@@ -198,6 +198,10 @@ public class Application {
                 case 6:
                         collezione.stampaCollezione();
                         break;
+
+                case 7:
+                    sc.close();
+                    return;
             }
         }
     }
