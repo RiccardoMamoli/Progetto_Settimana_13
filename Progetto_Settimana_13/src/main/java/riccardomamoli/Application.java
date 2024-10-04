@@ -48,7 +48,7 @@ public class Application {
             System.out.println("3) Filtra giochi per prezzo.");
             System.out.println("4) Filtra giochi per numero di giocatori.");
             System.out.println("5) Elimina un gioco.");
-            System.out.println("6) Stampa l'intera collezione.");
+            System.out.println("6) Stampa le statistiche dell'intera collezione.");
             System.out.println("7) Termina.");
             System.out.println(" ");
 
@@ -183,7 +183,7 @@ public class Application {
                 case 5:
                     try {
                         System.out.println(" ");
-                        System.out.println("In quanti volete giocare?");
+                        System.out.println("Inserisci l'ID del gioco da eliminare.");
                         System.out.println(" ");
                         int id = sc.nextInt();
                         collezione.eliminaID(id);

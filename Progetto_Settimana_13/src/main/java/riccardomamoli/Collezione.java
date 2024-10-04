@@ -4,9 +4,7 @@ import riccardomamoli.exceptions.NoIdFoundExceptions;
 import riccardomamoli.exceptions.OutOfRangeNumberOfPlayersExceptions;
 import riccardomamoli.exceptions.SameIdExceptions;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 
@@ -50,14 +48,13 @@ public class Collezione {
         System.out.println(" ");
         System.out.println("----------------------------------------- ");
         System.out.println(" ");
-        System.out.println("Collezione completa: ");
+        System.out.println("Statistiche della collezione: ");
         System.out.println(" ");
-        tuttiGiochi.forEach(gioco ->
-                        System.out.println
-                                ("ID: " + gioco.getId() +
-                                        "\nTitolo: " + gioco.getTitolo() +
-                                        "\nAnno di pubblicazione: " + gioco.getAnnoPubblicazione() +
-                                        "\nPrezzo: " + gioco.getPrezzo() + "\n"));
+        System.out.println("In totale abbiamo " + tuttiGiochi.size() + " giochi a database.");
+        System.out.println(" ");
+        GameBasicClass giocoCostoso = tuttiGiochi.stream().max(Comparator.comparingDouble(GameBasicClass::getPrezzo)).orElse(null);
+        System.out.println("Il gioco piu costoso è " + giocoCostoso.getTitolo() + ". Costa " + giocoCostoso.getPrezzo() + " Euro.");
+        System.out.println(" ");
     }
 
     public void ricercaPerGiocatori(Integer numeroGiocatori) throws OutOfRangeNumberOfPlayersExceptions {
@@ -85,12 +82,16 @@ public class Collezione {
        GameBasicClass giocoEliminato = tuttiGiochi.stream().filter(gioco -> gioco.getId().equals(id)).findFirst().orElse(null);
 
        if(giocoEliminato == null) {
-           throw new NoIdFoundExceptions("Nessun ha questo ID.");
+           throw new NoIdFoundExceptions("Nessun gioco ha questo ID.");
        } else {
            tuttiGiochi.remove(giocoEliminato);
+           System.out.println(" ");
            System.out.println("Il gioco con ID " + id + " è stato rimosso con successo!");
+           System.out.println(" ");
        }
     }
+
+
 
     public List<GameBasicClass> filtraGiochi (double prezzo) {
       return tuttiGiochi.stream().filter(gioco -> gioco.getPrezzo() < prezzo).collect(Collectors.toList());
